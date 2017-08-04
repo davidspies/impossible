@@ -1,0 +1,26 @@
+name:                impossible
+version:             0.1.0.0
+-- synopsis:
+-- description:
+homepage:            https://github.com/davidspies/impossible#readme
+license:             BSD3
+license-file:        LICENSE
+author:              David Spies
+maintainer:          "dn" ++ map toLower lastName ++ "@gmail.com"
+copyright:           2017 David Spies
+category:            Web
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Impossible, Data.Bit, Data.Cantor, Data.Natural
+  other-modules:       Util
+  build-depends:       base >= 4.7 && < 5, containers, MemoTrie
+  default-language:    Haskell2010
+  ghc-options:         -Wall -Werror
+
+source-repository head
+  type:     git
+  location: https://github.com/githubuser/impossible
