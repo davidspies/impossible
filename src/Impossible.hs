@@ -1,12 +1,12 @@
 module Impossible where
 
-import           Data.List    (scanl)
-import qualified Data.Set     as Set
-import           Prelude      hiding (drop)
+import Data.List (scanl)
+import qualified Data.Set as Set
+import Prelude hiding (drop)
 
-import           Data.Cantor
-import           Data.Natural
-import           Util
+import Data.Cantor
+import Data.Natural
+import Util
 
 relevant :: Eq a => (Cantor -> a) -> [Natural]
 relevant f = result

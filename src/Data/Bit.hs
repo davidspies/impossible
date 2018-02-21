@@ -5,7 +5,7 @@ module Data.Bit
     , coerce
     ) where
 
-import           Data.Natural
+import Data.Natural
 
 data Bit = Zero | One
   deriving (Eq, Ord, Show, Enum)

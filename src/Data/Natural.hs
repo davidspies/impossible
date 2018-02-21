@@ -1,16 +1,16 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE TypeApplications           #-}
-{-# LANGUAGE TypeFamilies               #-}
-{-# LANGUAGE TypeOperators              #-}
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 
 module Data.Natural
     ( Natural
     , binSearch
     ) where
 
-import           Data.Coerce   (coerce)
-import           Data.MemoTrie (HasTrie (..))
-import           Prelude
+import Data.Coerce (coerce)
+import Data.MemoTrie (HasTrie(..))
+import Prelude
 
 newtype Natural = Natural Integer
   deriving (Eq, Ord, Integral, Real)

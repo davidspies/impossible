@@ -1,5 +1,5 @@
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE LambdaCase        #-}
+{-# LANGUAGE LambdaCase #-}
 
 module Data.Cantor
     ( Cantor (..)
@@ -15,13 +15,13 @@ module Data.Cantor
     , zeros
     ) where
 
-import           Data.MemoTrie (memo)
-import           Data.Set      (Set)
-import qualified Data.Set      as Set
-import           Prelude       hiding (drop, pred, take)
+import Data.MemoTrie (memo)
+import Data.Set (Set)
+import qualified Data.Set as Set
+import Prelude hiding (drop, pred, take)
 
-import           Data.Bit
-import           Data.Natural
+import Data.Bit
+import Data.Natural
 
 newtype Cantor = Cantor {(!) :: Natural -> Bit}
 
