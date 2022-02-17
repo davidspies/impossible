@@ -2,26 +2,26 @@
 {-# LANGUAGE LambdaCase #-}
 
 module Data.Cantor
-    ( Cantor (..)
-    , Predicate
-    , drop
-    , exists
-    , find
-    , forall
-    , prependFrom
-    , retainOnly
-    , search
-    , take
-    , zeros
-    ) where
-
-import Data.MemoTrie (memo)
-import Data.Set (Set)
-import qualified Data.Set as Set
-import Prelude hiding (drop, pred, take)
+  ( Cantor (..),
+    Predicate,
+    drop,
+    exists,
+    find,
+    forall,
+    prependFrom,
+    retainOnly,
+    search,
+    take,
+    zeros,
+  )
+where
 
 import Data.Bit
-import Data.Natural
+import Data.Function.Memoize (memoize)
+import Data.Set (Set)
+import qualified Data.Set as Set
+import Numeric.Natural
+import Prelude hiding (drop, pred, take)
 
 newtype Cantor = Cantor {(!) :: Natural -> Bit}
 
@@ -38,10 +38,11 @@ type Predicate = Cantor -> Bool
 search :: Predicate -> Cantor
 search pred = result
   where
-    result = Cantor $ memo $ \i ->
-      if exists $ \x -> pred $ prependFrom i result (Zero # x)
-        then Zero
-        else One
+    result = Cantor $
+      memoize $ \i ->
+        if exists $ \x -> pred $ prependFrom i result (Zero # x)
+          then Zero
+          else One
 
 exists :: Predicate -> Bool
 exists pred = pred $ search pred
@@ -57,7 +58,7 @@ forall :: Predicate -> Bool
 forall = not . exists . (not .)
 
 take :: Natural -> Cantor -> [Bit]
-take n xs = [xs ! i | i <- [0..(n - 1)]]
+take n xs = [xs ! i | i <- [0 .. (n - 1)]]
 
 drop :: Natural -> Cantor -> Cantor
 drop n xs = Cantor $ (xs !) . (+ n)

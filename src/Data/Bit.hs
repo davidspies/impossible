@@ -1,11 +1,8 @@
 {-# LANGUAGE LambdaCase #-}
 
-module Data.Bit
-    ( Bit (..)
-    , coerce
-    ) where
+module Data.Bit (Bit (..), coerce) where
 
-import Data.Natural
+import Numeric.Natural (Natural)
 
 data Bit = Zero | One
   deriving (Eq, Ord, Show, Enum)
@@ -13,4 +10,4 @@ data Bit = Zero | One
 coerce :: Bit -> Natural
 coerce = \case
   Zero -> 0
-  One  -> 1
+  One -> 1

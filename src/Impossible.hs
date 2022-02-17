@@ -1,21 +1,21 @@
 module Impossible where
 
+import BinSearch (binSearch)
+import Data.Cantor
+import Data.Functor ((<&>))
 import Data.List (scanl)
 import qualified Data.Set as Set
-import Prelude hiding (drop)
-
-import Data.Cantor
-import Data.Natural
+import Numeric.Natural
 import Util
+import Prelude hiding (drop)
 
 relevant :: Eq a => (Cantor -> a) -> [Natural]
 relevant f = result
   where
     result = takeWhileJust $ map go $ scanl (flip Set.insert) Set.empty result
-    go known = (<$> find isCounterExample) $ \x ->
-      binSearch (\n ->
-        isCounterExample $ prependFrom n x (drop n $ retainOnly known x)
-      ) - 1
+    go known =
+      find isCounterExample <&> \x ->
+        binSearch (\n -> isCounterExample $ prependFrom n x (drop n $ retainOnly known x)) - 1
       where
         isCounterExample x = f x /= f (retainOnly known x)
 
