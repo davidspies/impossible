@@ -8,7 +8,7 @@ module Data.Cantor
     exists,
     find,
     forall,
-    prependFrom,
+    splice,
     retainOnly,
     search,
     take,
@@ -30,8 +30,11 @@ newtype Cantor = Cantor {(!) :: Natural -> Bit}
   0 -> b
   n -> x ! (n - 1)
 
-prependFrom :: Natural -> Cantor -> Cantor -> Cantor
-prependFrom i x y = Cantor $ \j -> if j < i then x ! j else y ! (j - i)
+splice :: Natural -> Cantor -> Bit -> Cantor -> Cantor
+splice i x v y = Cantor $ \j -> case compare j i of
+  LT -> x ! j
+  EQ -> v
+  GT -> y ! j
 
 type Predicate = Cantor -> Bool
 
@@ -39,10 +42,7 @@ search :: Predicate -> Cantor
 search pred = result
   where
     result = Cantor $
-      memoize $ \i ->
-        if exists $ \x -> pred $ prependFrom i result (Zero # x)
-          then Zero
-          else One
+      memoize $ \i -> if exists $ pred . splice i result Zero then Zero else One
 
 exists :: Predicate -> Bool
 exists pred = pred $ search pred
